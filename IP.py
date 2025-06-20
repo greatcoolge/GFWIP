@@ -16,30 +16,68 @@ except requests.RequestException as e:
     exit(1)
 
 soup = BeautifulSoup(response.text, "html.parser")
-
-# 更稳健地查找 <pre> 标签
 pre_tags = soup.find_all("pre")
 if not pre_tags:
     print("❌ 没有找到任何 <pre> 标签，可能网页结构变化。")
     exit(1)
 
-# 提取所有符合 IPv4 格式的字符串
-ip_list = []
-for pre in pre_tags:
-    ips = re.findall(r"\b(?:\d{1,3}\.){3}\d{1,3}\b", pre.text)
-    ip_list.extend(ips)
+ip4_list = []
+ip6_list = []
 
-# 去重、过滤非法 IP
 def is_valid_ipv4(ip):
     parts = ip.split(".")
-    return all(0 <= int(part) <= 255 for part in parts)
+    if len(parts) != 4:
+        return False
+    return all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)
 
-ip_list = sorted(set(filter(is_valid_ipv4, ip_list)))
+def is_valid_ipv6(ip):
+    if ip.count("::") > 1:
+        return False
+    parts = ip.split(":")
+    if len(parts) > 8:
+        return False
+    for part in parts:
+        if part == "":
+            continue
+        if len(part) > 4:
+            return False
+        if not all(c in "0123456789abcdefABCDEF" for c in part):
+            return False
+    return True
 
-if not ip_list:
-    print("⚠️ 没有找到合法 IP 地址")
-else:
-    with open("ip_list.txt", "w") as file:
-        for ip in ip_list:
-            file.write(ip + "\n")
-    print(f"✅ 共提取并写入 {len(ip_list)} 个合法 IP 到 ip_list.txt 文件中！")
+ipv4_pattern = re.compile(r"\b(?:\d{1,3}\.){3}\d{1,3}\b")
+
+ipv6_pattern = re.compile(r"""
+    \b
+    (?:                                     
+      (?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}         
+      |                                   
+      (?:[0-9a-fA-F]{1,4}:){1,7}:                 
+      |                                   
+      (?:[0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}           
+      |                                   
+      ::                                  
+    )
+    \b
+""", re.VERBOSE)
+
+for pre in pre_tags:
+    text = pre.text
+    ip4s = ipv4_pattern.findall(text)
+    ip4_list.extend(filter(is_valid_ipv4, ip4s))
+    ip6s = ipv6_pattern.findall(text)
+    ip6_list.extend(filter(is_valid_ipv6, ip6s))
+
+ip4_list = sorted(set(ip4_list))
+ip6_list = sorted(set(ip6_list))
+
+with open("ip4_list.txt", "w") as f4:
+    for ip in ip4_list:
+        f4.write(ip + "\n")
+
+with open("ip6_list.txt", "w") as f6:
+    for ip in ip6_list:
+        f6.write(ip + "\n")
+
+print(f"✅ IPv4 共提取 {len(ip4_list)} 个，已保存到 ip4_list.txt")
+print(f"✅ IPv6 共提取 {len(ip6_list)} 个，已保存到 ip6_list.txt")
