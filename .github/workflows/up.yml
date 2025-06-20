@@ -34,7 +34,7 @@ jobs:
 
       - name: Download Filters
         run: |
-          python IPv4.py
+          python IP.py
           
       - name: Download Setup 
         run: |
