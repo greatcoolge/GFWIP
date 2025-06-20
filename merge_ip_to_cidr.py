@@ -1,14 +1,21 @@
 import ipaddress
 
+# 读取原始 IP 列表
 with open("ip4_list.txt", "r") as f:
     lines = [line.strip() for line in f if line.strip()]
 
-# 添加 /32 后变为 IP 网络对象
-ip_networks = [ipaddress.ip_network(ip + "/32") for ip in lines]
+# 写入未合并（全是 /32）版本
+with open("ip4_cidr.txt", "w") as f_raw:
+    for ip in lines:
+        f_raw.write(ip + "/32\n")
 
-# 合并成最小 CIDR 块（自动归并连续 IP）
-merged = ipaddress.collapse_addresses(ip_networks)
+# 转为 IPv4Network 对象（每个 IP 都当成 /32）
+networks = [ipaddress.IPv4Network(ip + "/32") for ip in lines]
 
-with open("gfw_ip_list.txt", "w") as f:
+# 使用 collapse 合并相邻网段
+merged = ipaddress.collapse_addresses(networks)
+
+# 写入合并后版本
+with open("gfw_ip_list.txt", "w") as f_merge:
     for net in merged:
-        f.write(str(net) + "\n")
+        f_merge.write(str(net) + "\n")
