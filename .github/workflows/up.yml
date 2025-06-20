@@ -47,7 +47,7 @@ jobs:
       - name: merger file 
         run: |
           chmod +x cidr-merger-linux-amd64
-          ./cidr-merger-linux-amd64 ip_list.txt > gfw_ip_list.txt
+          ./cidr-merger-linux-amd64 ip4_list.txt > gfw_ip_list.txt
 
 
       - name: Apply
