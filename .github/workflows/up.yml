@@ -2,7 +2,7 @@ name: Auto Update
 
 on: 
   schedule:
-    - cron: 0 4 * * 1 
+    - cron: '0 3 * * *'  # UTC 3点 = 北京时间 11点 
   workflow_dispatch:
 
 env:
