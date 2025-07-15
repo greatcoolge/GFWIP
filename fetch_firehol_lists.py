@@ -46,15 +46,20 @@ def parse_ipv4_lines(text: str, ips: Set[str], cidrs: Set[str]) -> None:
             ips.add(line)
 
 def fetch_ipv6_blacklist(url: str) -> Set[str]:
-    """下载并解析 Spamhaus DROP IPv6 黑名单，返回 CIDR 字符串集合"""
+    import json
     resp = requests.get(url, timeout=20)
     resp.raise_for_status()
-    data = resp.json()
     cidrs = set()
-    for item in data.get("DROPv6", []):
-        prefix = item.get("prefix")
-        if prefix:
-            cidrs.add(prefix)
+    for line in resp.text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            obj = json.loads(line)
+            if "cidr" in obj:
+                cidrs.add(obj["cidr"])
+        except Exception as e:
+            print(f"[WARN] IPv6 blacklist line parse error: {e}")
     return cidrs
 
 def main() -> None:
