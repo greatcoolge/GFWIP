@@ -3,7 +3,7 @@ from typing import Set
 
 # ▶ 推荐使用的黑名单（FireHOL + abuse.ch 推荐）
 LISTS = {
-    "firehol_level1":     "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset",
+    #"firehol_level1":     "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset",
     "spamhaus_drop":      "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/spamhaus_drop.netset",
     "dshield":            "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/dshield.netset",
     "feodo":              "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/feodo.netset",
