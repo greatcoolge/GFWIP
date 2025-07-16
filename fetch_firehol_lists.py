@@ -1,5 +1,6 @@
 import pathlib
 import re
+import ipaddress
 import sys
 import requests
 import textwrap
@@ -13,7 +14,7 @@ LISTS_V4 = {
     #"dshield":           "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/dshield.netset",
     "feodo":             "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/feodo.netset",
     "sslbl":             "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/sslbl.netset",
-    "zeus_badips":       "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/zeus_badips.netset",
+    #"zeus_badips":       "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/zeus_badips.netset",
     #"firehol_webclient": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_webclient.netset",
 }
 
@@ -33,18 +34,33 @@ def fetch_list(url: str) -> str:
     resp.raise_for_status()
     return resp.text
 
-def parse_ipv4_lines(text: str, ips: Set[str], cidrs: Set[str]) -> None:
-    """按行解析 IPv4 列表，填充 ips / cidrs"""
+def parse_ipv4_lines(text: str, ips: set, cidrs: set) -> None:
+    """按行解析 IPv4 列表，填充 ips / cidrs，校验合法性"""
     for line in text.splitlines():
         line = line.strip()
         if not line or line.startswith("#"):
             continue
         if ";" in line:
             line = line.split(";", 1)[0].strip()
-        if CIDR4_RE.match(line):
-            cidrs.add(line)
-        elif IPV4_RE.match(line):
-            ips.add(line)
+
+        # 尝试先解析为CIDR
+        try:
+            net = ipaddress.IPv4Network(line, strict=False)
+            cidrs.add(str(net))
+            continue
+        except ValueError:
+            pass
+
+        # 尝试解析为单个IP
+        try:
+            ip = ipaddress.IPv4Address(line)
+            ips.add(str(ip))
+            continue
+        except ValueError:
+            pass
+
+        # 不合法则跳过
+        # print(f"Invalid IPv4 or CIDR ignored: {line}")
 
 def fetch_ipv6_blacklist(url: str) -> Set[str]:
     import json
