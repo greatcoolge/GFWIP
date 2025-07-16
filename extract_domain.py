@@ -20,74 +20,32 @@ DEFAULT_EXCLUDE_SUFFIXES = {}
 
 # 排除的特定域名或带通配符的域名（*仅支持一次，表示任意字符）
 DEFAULT_EXCLUDE_DOMAINS = {
-    # Google 广告与统计
     "doubleclick.net",
-    "googlesyndication.com",
     "googletagmanager.com",
     "google-analytics.com",
     "gstatic.com",
-
-    # Facebook & Meta
-    "facebook.com",
-    "fbcdn.net",
-    "connect.facebook.net",
-    "facebook.net",
-
-    # Microsoft & LinkedIn
-    "msedge.net",
-    "bing.com",
-    "clarity.ms",
-    "licdn.com",
-
-    # Twitter/X
-    "twitter.com",
-    "t.co",
-
-    # TikTok
-    "tiktokcdn.com",
-
-    # Cloudflare Analytics
-    "cloudflareinsights.com",
-
-    # Sentry - 错误收集
     "sentry.io",
-
-    # Discord CDN（表情图像等）
-    "cdn.discordapp.com",
-
-    # Instagram 图片
-    "cdninstagram.com",
-
-    # JS 库 CDN
     "cdn.jsdelivr.net",
-    "cdnjs.cloudflare.com",
-
-    # Firebase
+    "cdn.discordapp.com",
+    "cdninstagram.com",
     "firebaseio.com",
     "firebaseapp.com",
-
-    # 其他广告域名
+    "facebook.com",
+    "fbcdn.net",
+    "tiktokcdn.com",
+    "cloudflareinsights.com",
+    "msedge.net",
+    "snapchat.com",
     "scorecardresearch.com",
-    "criteo.com",
-    "adnxs.com",
-    "adsafeprotected.com",
-    "zedo.com",
-    "quantserve.com",
-    "adform.net",
-    "adroll.com",
-    "tapad.com",
-    "trustarc.com",
-    "moatads.com",
-    "contextweb.com",
-    "casalemedia.com",
-    "openx.net",
-    "bluekai.com",
-    "rubiconproject.com",
-    "mathtag.com",
-    "yieldmo.com",
-    "media.net",
-    "advertising.com",
+    "ads-twitter.com",
     "adservice.google.com",
+    "ytimg.com",
+    "youtube.com",
+    "app-measurement.com",
+    "branch.io",
+    "moatads.com",
+    "crashlytics.com",
+    "adjust.com",
 }
 # 排除的国家级顶级域名（可再细化）
 COUNTRY_CODE_TLDS = {}
