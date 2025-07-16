@@ -1,5 +1,7 @@
 import re
 import requests
+from typing import Optional
+
 
 BLACKLIST_SOURCES = {
     "emerging_threats": "https://hosts.tweedge.net/malicious.txt",
@@ -11,7 +13,7 @@ BLACKLIST_SOURCES = {
 MAX_DOMAIN_LEN = 70
 MIN_DOMAIN_LEN = 3
 
-def clean_rule_line(line: str) -> str | None:
+def clean_rule_line(line: str) -> Optional[str]:
     line = line.strip()
     if not line or line.startswith("#") or line.startswith("!"):
         return None
