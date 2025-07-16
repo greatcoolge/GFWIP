@@ -16,7 +16,17 @@ CIDR_RE = re.compile(r"^\d{1,3}(?:\.\d{1,3}){3}/\d{1,2}$")
 DOMAIN_RE = re.compile(r"^(?:[\w\-]+\.)+[a-z]{2,}$")
 
 # 默认排除尾缀，示例（可空）
-DEFAULT_EXCLUDE_SUFFIXES = {".xyz", ".top", ".gq", ".tk", ".ml", ".cf"}
+DEFAULT_EXCLUDE_SUFFIXES = {
+    ".tk", ".ml", ".ga", ".cf", ".gq",
+    ".xyz", ".top", ".click", ".fit", ".cfd",
+    ".review", ".zip", ".monster", ".cam", ".club", ".cyou",
+    ".onion", ".bit", ".bazar", ".black", ".red",
+    ".work", ".party", ".science", ".trade", ".loan", ".date", ".win",
+    ".pw", ".icu", ".site", ".online", ".store", ".live",
+    ".support", ".software", ".download", ".space", ".host",
+    ".sex", ".adult", ".xxx", ".porn",
+    ".fun", ".buzz", ".lol", ".app", ".dev", ".page"
+}
 
 
 def extract_domain_or_ip(
