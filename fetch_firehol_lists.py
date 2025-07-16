@@ -5,6 +5,7 @@ import sys
 import requests
 import textwrap
 from typing import Set
+from typing import Optional
 
 # ▶ 推荐使用的 IPv4 黑名单列表（FireHOL + abuse.ch 推荐）
 LISTS_V4 = {
