@@ -1,3 +1,7 @@
+import re
+import requests
+from typing import Optional
+
 BLACKLIST_SOURCES = {
     "emerging_threats": "https://hosts.tweedge.net/malicious.txt",
     "emerging_cyberhost": "https://lists.cyberhost.uk/malware.txt",
