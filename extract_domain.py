@@ -16,76 +16,81 @@ CIDR_RE = re.compile(r"^\d{1,3}(?:\.\d{1,3}){3}/\d{1,2}$")
 DOMAIN_RE = re.compile(r"^(?:[\w\-]+\.)+[a-z]{2,}$")
 
 # 排除的域名后缀（比如垃圾顶级域）
-DEFAULT_EXCLUDE_SUFFIXES = {
-    ".tk", ".ml", ".ga", ".cf", ".gq",
-    ".xyz", ".top", ".click", ".fit", ".cfd", ".shop",
-    ".review", ".zip", ".monster", ".cam", ".club", ".cyou",
-    ".onion", ".bit", ".bazar", ".black", ".red",
-    ".work", ".party", ".science", ".trade", ".loan", ".date", ".win",
-    ".pw", ".icu", ".site", ".online", ".store", ".live",
-    ".support", ".software", ".download", ".space", ".host",
-    ".sex", ".adult", ".xxx", ".porn",
-    ".fun", ".buzz", ".lol", ".app", ".dev", ".page"
-}
+DEFAULT_EXCLUDE_SUFFIXES = {}
 
 # 排除的特定域名或带通配符的域名（*仅支持一次，表示任意字符）
 DEFAULT_EXCLUDE_DOMAINS = {
-    "cloudflare.com",
-    "akamai.net",
-    "googleusercontent.com",
-    "googleapis.com",
-    "gvt1.com",
-    "gvt2.com",
-    "fastly.net",
-    "cloudfront.net",
-    "netflix.net",
-    "windowsupdate.com",
-    "microsoft.com",
-    "bing.com",
-    "amazonaws.com",
-    "fbcdn.net",
-    "facebook.com",
-    "tiktokcdn.com",
+    # Google 广告与统计
     "doubleclick.net",
-    "doubleclick.*",           # 保留通配符形式
-    "edgecastcdn.net",
-    "cdninstagram.com",
-    "cdn.discordapp.com",
-    "discord.gg",
-    "msedge.net",
+    "googlesyndication.com",
     "googletagmanager.com",
-    "analytics.*",             # 保留通配符形式
-    "*.google.com",            # 保留通配符形式
-    "*.googleusercontent.com" # 保留通配符形式
+    "google-analytics.com",
+    "gstatic.com",
+
+    # Facebook & Meta
+    "facebook.com",
+    "fbcdn.net",
+    "connect.facebook.net",
+    "facebook.net",
+
+    # Microsoft & LinkedIn
+    "msedge.net",
+    "bing.com",
+    "clarity.ms",
+    "licdn.com",
+
+    # Twitter/X
+    "twitter.com",
+    "t.co",
+
+    # TikTok
+    "tiktokcdn.com",
+
+    # Cloudflare Analytics
+    "cloudflareinsights.com",
+
+    # Sentry - 错误收集
+    "sentry.io",
+
+    # Discord CDN（表情图像等）
+    "cdn.discordapp.com",
+
+    # Instagram 图片
+    "cdninstagram.com",
+
+    # JS 库 CDN
+    "cdn.jsdelivr.net",
+    "cdnjs.cloudflare.com",
+
+    # Firebase
+    "firebaseio.com",
+    "firebaseapp.com",
+
+    # 其他广告域名
+    "scorecardresearch.com",
+    "criteo.com",
+    "adnxs.com",
+    "adsafeprotected.com",
+    "zedo.com",
+    "quantserve.com",
+    "adform.net",
+    "adroll.com",
+    "tapad.com",
+    "trustarc.com",
+    "moatads.com",
+    "contextweb.com",
+    "casalemedia.com",
+    "openx.net",
+    "bluekai.com",
+    "rubiconproject.com",
+    "mathtag.com",
+    "yieldmo.com",
+    "media.net",
+    "advertising.com",
+    "adservice.google.com",
 }
 # 排除的国家级顶级域名（可再细化）
-COUNTRY_CODE_TLDS = {
-    ".ac", ".ad", ".ae", ".af", ".ag", ".ai", ".al", ".am", ".ao", ".aq",
-    ".ar", ".as", ".at", ".au", ".aw", ".ax", ".az", ".ba", ".bb", ".bd",
-    ".be", ".bf", ".bg", ".bh", ".bi", ".bj", ".bm", ".bn", ".bo", ".br",
-    ".bs", ".bt", ".bv", ".bw", ".by", ".bz", ".ca", ".cc", ".cd", ".cf",
-    ".cg", ".ch", ".ci", ".ck", ".cl", ".cm", ".cn", ".co", ".cr", ".cu",
-    ".cv", ".cw", ".cx", ".cy", ".cz", ".de", ".dj", ".dk", ".dm", ".do",
-    ".dz", ".ec", ".ee", ".eg", ".er", ".es", ".et", ".eu", ".fi", ".fj",
-    ".fk", ".fm", ".fo", ".fr", ".ga", ".gb", ".gd", ".ge", ".gf", ".gg",
-    ".gh", ".gi", ".gl", ".gm", ".gn", ".gp", ".gq", ".gr", ".gs", ".gt",
-    ".gu", ".gw", ".gy", ".hk", ".hm", ".hn", ".hr", ".ht", ".hu", ".id",
-    ".ie", ".il", ".im", ".in", ".io", ".iq", ".ir", ".is", ".it", ".je",
-    ".jm", ".jo", ".jp", ".ke", ".kg", ".kh", ".ki", ".km", ".kn", ".kp",
-    ".kr", ".kw", ".ky", ".kz", ".la", ".lb", ".lc", ".li", ".lk", ".lr",
-    ".ls", ".lt", ".lu", ".lv", ".ly", ".ma", ".mc", ".md", ".me", ".mf",
-    ".mg", ".mh", ".mk", ".ml", ".mm", ".mn", ".mo", ".mp", ".mq", ".mr",
-    ".ms", ".mt", ".mu", ".mv", ".mw", ".mx", ".my", ".mz", ".na", ".nc",
-    ".ne", ".nf", ".ng", ".ni", ".nl", ".no", ".np", ".nr", ".nu", ".nz",
-    ".om", ".pa", ".pe", ".pf", ".pg", ".ph", ".pk", ".pl", ".pm", ".pn",
-    ".pr", ".ps", ".pt", ".pw", ".py", ".qa", ".re", ".ro", ".rs", ".ru",
-    ".rw", ".sa", ".sb", ".sc", ".sd", ".se", ".sg", ".sh", ".si", ".sj",
-    ".sk", ".sl", ".sm", ".sn", ".so", ".sr", ".ss", ".st", ".su", ".sv",
-    ".sx", ".sy", ".sz", ".tc", ".td", ".tf", ".tg", ".th", ".tj", ".tk",
-    ".tl", ".tm", ".tn", ".to", ".tr", ".tt", ".tv", ".tz", ".ua", ".ug",
-    ".uk", ".us", ".uy", ".uz", ".va", ".vc", ".ve", ".vg", ".vi", ".vn",
-    ".vu", ".wf", ".ws", ".ye", ".yt", ".za", ".zm", ".zw"
-}
+COUNTRY_CODE_TLDS = {}
 
 
 def match_domain_pattern(domain: str, pattern: str) -> bool:
