@@ -211,6 +211,6 @@ def main():
         for ip in sorted(all_ips):
             f.write(ip + "\n")
 
-
+DEFAULT_EXCLUDE_CC_TLDS = COUNTRY_CODE_TLDS  # <- 加这句绑定别名
 if __name__ == "__main__":
     main()
