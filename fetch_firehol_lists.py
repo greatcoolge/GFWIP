@@ -9,12 +9,12 @@ from typing import Set
 LISTS_V4 = {
     "firehol_level1":    "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset",
     "spamhaus_drop":     "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/spamhaus_drop.netset",
-    "compromised-ips":   "http://rules.emergingthreats.net/blockrules/compromised-ips.txt",
+    #"compromised-ips":   "http://rules.emergingthreats.net/blockrules/compromised-ips.txt",
     "dshield":           "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/dshield.netset",
     "feodo":             "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/feodo.netset",
     "sslbl":             "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/sslbl.netset",
     "zeus_badips":       "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/zeus_badips.netset",
-    "firehol_webclient": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_webclient.netset",
+    #"firehol_webclient": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_webclient.netset",
 }
 
 # ▶ 推荐使用的 IPv6 黑名单（Spamhaus DROP IPv6）
