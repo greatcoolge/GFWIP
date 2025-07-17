@@ -3,8 +3,8 @@ import requests
 from typing import Optional, Set, Tuple
 
 BLACKLIST_SOURCES = {
-    "emerging_threats": "https://hosts.tweedge.net/malicious.txt",
-    "emerging_cyberhost": "https://lists.cyberhost.uk/malware.txt",
+    "emerging_urlhaus": "https://malware-filter.gitlab.io/malware-filter/urlhaus-filter-online.txt",
+    #"emerging_cyberhost": "https://lists.cyberhost.uk/malware.txt",
     "curbengh_phishing": "https://malware-filter.gitlab.io/malware-filter/phishing-filter.txt",
 }
 
