@@ -19,7 +19,11 @@ DOMAIN_RE = re.compile(r"^(?:[\w\-]+\.)+[a-z]{2,}$")
 DEFAULT_EXCLUDE_SUFFIXES = set()
 
 # 排除的特定域名或带通配符的域名（*仅支持一次，表示任意字符），这次清空
-DEFAULT_EXCLUDE_DOMAINS = set()
+DEFAULT_EXCLUDE_DOMAINS = {
+    "doubleclick.net", "googletagmanager.com", "google-analytics.com",
+    "fbcdn.net", "cdn.discordapp.com", "tiktokcdn.com", "facebook.com",
+    # 其他广告、统计域名
+}
 
 # 排除的国家级顶级域名（这次清空）
 COUNTRY_CODE_TLDS = set()
