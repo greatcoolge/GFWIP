@@ -114,12 +114,12 @@ def main() -> None:
     cidrs_v6_sorted = sorted(cidrs_v6)
 
     # 写入文件
-    (OUT_DIR / "cidrs_v4.txt").write_text("\n".join(cidrs_v4_sorted), encoding="utf-8")
-    (OUT_DIR / "ips_v4.txt").write_text("\n".join(ips_v4_sorted), encoding="utf-8")
-    (OUT_DIR / "all_blacklist_v4.txt").write_text("\n".join(all_plain_v4), encoding="utf-8")
-    (OUT_DIR / "blacklist_cidr_v4.txt").write_text("\n".join(cidr_unified_v4), encoding="utf-8")
+    (OUT_DIR / "fetch_firehol_lists/cidrs_v4.txt").write_text("\n".join(cidrs_v4_sorted), encoding="utf-8")
+    (OUT_DIR / "fetch_firehol_lists/ips_v4.txt").write_text("\n".join(ips_v4_sorted), encoding="utf-8")
+    (OUT_DIR / "fetch_firehol_lists/all_blacklist_v4.txt").write_text("\n".join(all_plain_v4), encoding="utf-8")
+    (OUT_DIR / "fetch_firehol_lists/blacklist_cidr_v4.txt").write_text("\n".join(cidr_unified_v4), encoding="utf-8")
 
-    (OUT_DIR / "blacklist_cidr_v6.txt").write_text("\n".join(cidrs_v6_sorted), encoding="utf-8")
+    (OUT_DIR / "fetch_firehol_lists/blacklist_cidr_v6.txt").write_text("\n".join(cidrs_v6_sorted), encoding="utf-8")
 
     print(textwrap.dedent(f"""
         ✅ 黑名单提取完成！
