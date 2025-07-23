@@ -135,7 +135,7 @@ def main():
         for domain in sorted(all_domains):
             f.write(f"||{domain}^\n")
     
-    with open("blacklist_ips.txt", "w", encoding="utf-8") as f:
+    with open("extract_domain/blacklist_ips.txt", "w", encoding="utf-8") as f:
         for ip in sorted(all_ips):
             f.write(ip + "\n")
 
