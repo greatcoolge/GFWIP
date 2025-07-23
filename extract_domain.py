@@ -128,10 +128,10 @@ def main():
     print(f"\n✅ Total collected:")
     print(f"- Domains: {len(all_domains)}")
     print(f"- IPs    : {len(all_ips)}")
-    with open("blacklist_domains.txt", "w", encoding="utf-8") as f:
+    with open("extract_domain/blacklist_domains.txt", "w", encoding="utf-8") as f:
         for d in sorted(all_domains):
             f.write(d + "\n")
-    with open("blacklist_adblock.txt", "w", encoding="utf-8") as f:
+    with open("extract_domain/blacklist_adblock.txt", "w", encoding="utf-8") as f:
         for domain in sorted(all_domains):
             f.write(f"||{domain}^\n")
     
