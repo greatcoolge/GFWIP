@@ -71,13 +71,13 @@ for pre in pre_tags:
 ip4_list = sorted(set(ip4_list))
 ip6_list = sorted(set(ip6_list))
 
-with open("ip4_list.txt", "w") as f4:
+with open("IP/ip4_list.txt", "w") as f4:
     for ip in ip4_list:
         f4.write(ip + "\n")
 
-with open("ip6_list.txt", "w") as f6:
+with open("IP/ip6_list.txt", "w") as f6:
     for ip in ip6_list:
         f6.write(ip + "\n")
 
-print(f"✅ IPv4 共提取 {len(ip4_list)} 个，已保存到 ip4_list.txt")
-print(f"✅ IPv6 共提取 {len(ip6_list)} 个，已保存到 ip6_list.txt")
+print(f"✅ IPv4 共提取 {len(ip4_list)} 个，已保存到 IP/ip4_list.txt")
+print(f"✅ IPv6 共提取 {len(ip6_list)} 个，已保存到 IP/ip6_list.txt")
