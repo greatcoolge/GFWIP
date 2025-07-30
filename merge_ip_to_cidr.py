@@ -1,7 +1,7 @@
 import ipaddress
 
 # 读取原始 IP 列表
-with open("ip4_list.txt", "r") as f:
+with open("IP/ip4_list.txt", "r") as f:
     lines = [line.strip() for line in f if line.strip()]
 
 # 写入未合并（全是 /32）版本
