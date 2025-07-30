@@ -5,7 +5,7 @@ with open("IP/ip4_list.txt", "r") as f:
     lines = [line.strip() for line in f if line.strip()]
 
 # 写入未合并（全是 /32）版本
-with open("ip4_cidr.txt", "w") as f_raw:
+with open("IP/ip4_cidr.txt", "w") as f_raw:
     for ip in lines:
         f_raw.write(ip + "/32\n")
 
