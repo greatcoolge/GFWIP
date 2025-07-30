@@ -11,7 +11,7 @@ from typing import Optional
 LISTS_V4 = {
     "firehol_level1":    "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset",
     "spamhaus_drop":     "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/spamhaus_drop.netset",
-    #"compromised-ips":   "http://rules.emergingthreats.net/blockrules/compromised-ips.txt",
+    "firehol_abusers_30d":   "https://iplists.firehol.org/files/firehol_abusers_30d.netset",
     #"dshield":           "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/dshield.netset",
     "feodo":             "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/feodo.netset",
     "sslbl":             "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/sslbl.netset",
