@@ -35,10 +35,6 @@ jobs:
         run: |
           python IP.py
 
-      - name: Merge IPs using Python
-        run: |
-          python merge_ip_to_cidr.py
-
       - name: fetch_firehol_lists
         run: |
           python fetch_firehol_lists.py
