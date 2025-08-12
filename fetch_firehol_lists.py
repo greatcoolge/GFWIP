@@ -10,13 +10,13 @@ from typing import Optional
 # ▶ 推荐使用的 IPv4 黑名单列表（FireHOL + abuse.ch 推荐）
 LISTS_V4 = {
     "firehol_level1":    "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset",
-    "spamhaus_drop":     "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/spamhaus_drop.netset",
+    "spamhaus_drop":    "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/spamhaus_drop.netset",
     "firehol_abusers_30d":   "https://iplists.firehol.org/files/firehol_abusers_30d.netset",
-    "dshield":           "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/dshield.netset",
-    "feodo":             "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/feodo.netset",
-    "sslbl":             "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/sslbl.netset",
-    "zeus_badips":       "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/zeus_badips.netset",
-    "bogons": "http://www.cidr-report.org/bogons/freespace-prefix.txt",
+    "dshield":    "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/dshield.netset",
+    "feodo":    "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/feodo.netset",
+    "sslbl":    "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/sslbl.netset",
+    "zeus_badips":    "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/zeus_badips.netset",
+    "bogons":    "http://www.cidr-report.org/bogons/freespace-prefix.txt",
 }
 
 # ▶ 推荐使用的 IPv6 黑名单（Spamhaus DROP IPv6）
