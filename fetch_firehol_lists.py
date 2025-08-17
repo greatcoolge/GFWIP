@@ -8,7 +8,7 @@ from typing import Set
 from pathlib import Path
 # ▶ 推荐使用的 IPv4 黑名单列表（FireHOL + abuse.ch）
 LISTS_V4 = {
-    "URLhaus": file://
+    "URLhaus": "file://./extract_domain/blacklist_ips.txt",
     "firehol_level1": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset",
     "spamhaus_drop": "https://www.spamhaus.org/drop/drop.txt",
     "abuse_palevo": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/refs/heads/master/iblocklist_abuse_palevo.netset",
