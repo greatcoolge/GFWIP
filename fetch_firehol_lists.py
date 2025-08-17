@@ -21,7 +21,6 @@ LISTS_V4 = {
 
 # ▶ 推荐使用的 IPv6 黑名单（Spamhaus DROP IPv6）
 LISTS_V6 = {
-    "bogons": "http://www.cidr-report.org/bogons/freespace-prefix6.txt",
     "spamhaus_drop_v6": "https://www.spamhaus.org/drop/drop_v6.json",
 }
 
