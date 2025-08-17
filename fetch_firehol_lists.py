@@ -14,7 +14,7 @@ LISTS_V4 = {
     "dshield": "https://feeds.dshield.org/block.txt",
     "feodo": "https://feodotracker.abuse.ch/downloads/ipblocklist_recommended.txt",
     "sslbl": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/sslbl.netset",
-    "Blocklist.de": "https://lists.blocklist.de/lists/all.txt",
+    "Blocklist.de": "https://lists.blocklist.de/lists/strongips.txt",
     "zeus_badips": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/zeus_badips.netset",
     "bogons": "http://www.cidr-report.org/bogons/freespace-prefix.txt",
 }
