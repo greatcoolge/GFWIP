@@ -87,4 +87,4 @@
 2a14:7c2::/32
 2a14:7c3::/32
 2c0f:6c0::/28
-{"type":"metadata","timestamp":1755401591,"size":5607,"records":89,"copyright":"(c) 2025 The Spamhaus Project SLU","terms":"https://www.spamhaus.org/drop/terms/"}
+{"type":"metadata","timestamp":1755086590,"size":5607,"records":89,"copyright":"(c) 2025 The Spamhaus Project SLU","terms":"https://www.spamhaus.org/drop/terms/"}
