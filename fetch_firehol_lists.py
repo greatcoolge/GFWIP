@@ -75,7 +75,7 @@ def parse_ipv4_lines(text: str) -> Set[str]:
 
 
 def fetch_ipv6_blacklist(url: str) -> Set[str]:
-    """下载 IPv6 黑名单（Spamhaus DROP），返回 CIDR 集合，兼容两种 JSON 格式"""
+    """下载 IPv6 黑名单，兼容 JSON 数组、JSONL 和纯文本格式"""
     resp = requests.get(url, timeout=20)
     resp.raise_for_status()
     cidrs = set()
@@ -85,23 +85,28 @@ def fetch_ipv6_blacklist(url: str) -> Set[str]:
         data = resp.json()
         if isinstance(data, list):
             for entry in data:
-                if "cidr" in entry:
+                if isinstance(entry, dict) and "cidr" in entry:
                     cidrs.add(entry["cidr"])
-            return cidrs
+            if cidrs:
+                return cidrs
     except Exception:
         pass
 
-    # 回退：按行解析每行 JSON 对象
+    # 回退：按行解析
     for line in resp.text.splitlines():
         line = line.strip()
-        if not line:
+        if not line or line.startswith("#"):
             continue
+        # 尝试 JSON 对象
         try:
             obj = json.loads(line)
-            if "cidr" in obj:
+            if isinstance(obj, dict) and "cidr" in obj:
                 cidrs.add(obj["cidr"])
-        except Exception as e:
-            print(f"[WARN] IPv6 blacklist line parse error: {e}")
+                continue
+        except Exception:
+            pass
+        # 如果不是 JSON，就当作纯文本 CIDR
+        cidrs.add(line)
 
     return cidrs
 
