@@ -2,6 +2,7 @@ import pathlib
 import ipaddress
 import sys
 import requests
+import json
 import textwrap
 from typing import Set
 
@@ -72,17 +73,34 @@ def parse_ipv4_lines(text: str) -> Set[str]:
 
 
 def fetch_ipv6_blacklist(url: str) -> Set[str]:
-    """下载 IPv6 黑名单（Spamhaus DROP），返回 CIDR 集合"""
+    """下载 IPv6 黑名单（Spamhaus DROP），返回 CIDR 集合，兼容两种 JSON 格式"""
     resp = requests.get(url, timeout=20)
     resp.raise_for_status()
     cidrs = set()
+
+    # 尝试解析整个 JSON 数组
     try:
-        data = resp.json()  # 整个文件是 JSON 数组
-        for entry in data:
-            if "cidr" in entry:
-                cidrs.add(entry["cidr"])
-    except Exception as e:
-        print(f"[WARN] IPv6 blacklist parse error: {e}")
+        data = resp.json()
+        if isinstance(data, list):
+            for entry in data:
+                if "cidr" in entry:
+                    cidrs.add(entry["cidr"])
+            return cidrs
+    except Exception:
+        pass
+
+    # 回退：按行解析每行 JSON 对象
+    for line in resp.text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            obj = json.loads(line)
+            if "cidr" in obj:
+                cidrs.add(obj["cidr"])
+        except Exception as e:
+            print(f"[WARN] IPv6 blacklist line parse error: {e}")
+
     return cidrs
 
 
