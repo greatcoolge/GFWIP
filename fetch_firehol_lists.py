@@ -14,12 +14,14 @@ LISTS_V4 = {
     "dshield": "https://feeds.dshield.org/block.txt",
     "feodo": "https://feodotracker.abuse.ch/downloads/ipblocklist_recommended.txt",
     "sslbl": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/sslbl.netset",
+    "Blocklist.de": "https://lists.blocklist.de/lists/all.txt",
     "zeus_badips": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/zeus_badips.netset",
     "bogons": "http://www.cidr-report.org/bogons/freespace-prefix.txt",
 }
 
 # ▶ 推荐使用的 IPv6 黑名单（Spamhaus DROP IPv6）
 LISTS_V6 = {
+    "bogons": "http://www.cidr-report.org/bogons/freespace-prefix6.txt",
     "spamhaus_drop_v6": "https://www.spamhaus.org/drop/drop_v6.json",
 }
 
