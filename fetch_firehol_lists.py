@@ -5,9 +5,10 @@ import requests
 import json
 import textwrap
 from typing import Set
-
+from pathlib import Path
 # ▶ 推荐使用的 IPv4 黑名单列表（FireHOL + abuse.ch）
 LISTS_V4 = {
+    "URLhaus": file://
     "firehol_level1": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset",
     "spamhaus_drop": "https://www.spamhaus.org/drop/drop.txt",
     "abuse_palevo": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/refs/heads/master/iblocklist_abuse_palevo.netset",
@@ -29,11 +30,15 @@ OUT_DIR = pathlib.Path(__file__).resolve().parent / "fetch_firehol_lists"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def fetch_list(url: str) -> str:
-    """下载名单文本，失败时抛异常"""
-    resp = requests.get(url, timeout=20)
-    resp.raise_for_status()
-    return resp.text
+def fetch_list(url_or_path: str) -> str:
+    """下载或读取名单文本，支持网络 URL 和本地文件"""
+    if url_or_path.startswith("file://"):
+        path = Path(url_or_path[7:])
+        return path.read_text()
+    else:
+        resp = requests.get(url_or_path, timeout=20)
+        resp.raise_for_status()
+        return resp.text
 
 
 def parse_ipv4_lines(text: str) -> Set[str]:
