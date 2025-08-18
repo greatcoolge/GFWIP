@@ -139,5 +139,6 @@ def main():
         for ip in sorted(all_ips):
             f.write(ip + "\n")
 
+load_blacklist_ips = lambda file_path="extract_domain/blacklist_ips.txt": set(open(file_path, encoding="utf-8").read().splitlines()) if Path(file_path).exists() else set()
 if __name__ == "__main__":
     main()
