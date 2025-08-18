@@ -1,6 +1,7 @@
 import re
 import requests
 from typing import Optional, Set, Tuple
+from pathlib import Path
 
 BLACKLIST_SOURCES = {
     "emerging_urlhaus": "https://malware-filter.gitlab.io/malware-filter/urlhaus-filter-online.txt",
