@@ -35,14 +35,14 @@ jobs:
         run: |
           python IP.py
 
-      - name: fetch_firehol_lists
-        run: |
-          python fetch_firehol_lists.py
-
       - name: extract_domain
         run: |
           python extract_domain.py
       
+      - name: fetch_firehol_lists
+        run: |
+          python fetch_firehol_lists.py
+
       - name: Commit & Push Changes
         run: |
           Emoji=("🎉" "🤞" "✨" "🎁" "🎈" "🎄" "🎨" "🍓" "🍕" "🍉" "💐" "🌴" "🚀" "🛸" "🗽" "⛅" "🌈" "🔥" "⛄" "🐶" "🏅" "🦄" "🐤")
