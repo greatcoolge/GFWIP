@@ -139,6 +139,13 @@ def main():
         for ip in sorted(all_ips):
             f.write(ip + "\n")
 
-load_blacklist_ips = lambda file_path="extract_domain/blacklist_ips.txt": set(open(file_path, encoding="utf-8").read().splitlines()) if Path(file_path).exists() else set()
+def load_blacklist_ips(filepath="extract_domain/blacklist_ips.txt"):
+    """读取 blacklist_ips.txt 文件，返回 IP 集合"""
+    path = Path(filepath)
+    if not path.exists():
+        return set()
+    with path.open("r", encoding="utf-8") as f:
+        return {line.strip() for line in f if line.strip() and not line.startswith("#")}
+
 if __name__ == "__main__":
     main()
