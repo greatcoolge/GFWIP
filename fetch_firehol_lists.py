@@ -4,11 +4,15 @@ import sys
 import requests
 import json
 import textwrap
-from typing import Set
+
 from pathlib import Path
+from extract_domain import load_blacklist_ips
+from typing import Set, Union
+# 输出目录
+OUT_DIR = pathlib.Path(__file__).resolve().parent / "fetch_firehol_lists"
+OUT_DIR.mkdir(parents=True, exist_ok=True)
 # ▶ 推荐使用的 IPv4 黑名单列表（FireHOL + abuse.ch）
 LISTS_V4 = {
-    "URLhaus": "file://./extract_domain/blacklist_ips.txt",
     "firehol_level1": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset",
     "spamhaus_drop": "https://www.spamhaus.org/drop/drop.txt",
     "abuse_palevo": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/refs/heads/master/iblocklist_abuse_palevo.netset",
@@ -25,18 +29,20 @@ LISTS_V6 = {
     "spamhaus_drop_v6": "https://www.spamhaus.org/drop/drop_v6.json",
 }
 
-# 输出目录
-OUT_DIR = pathlib.Path(__file__).resolve().parent / "fetch_firehol_lists"
-OUT_DIR.mkdir(parents=True, exist_ok=True)
+# ▶ 加入本地黑名单
+blacklist_ips = load_blacklist_ips()
+print(f"加载到 {len(blacklist_ips)} 个本地黑名单 IP")
+LISTS_V4["local_blacklist"] = blacklist_ips
 
 
-def fetch_list(url_or_path: str) -> str:
-    """下载或读取名单文本，支持网络 URL 和本地文件"""
-    if url_or_path.startswith("file://"):
-        path = Path(url_or_path[7:])
+def fetch_list(url_or_ips: Union[str, Set[str]]) -> str:
+    if isinstance(url_or_ips, set):
+        return "\n".join(url_or_ips)
+    elif url_or_ips.startswith("file://"):
+        path = Path(url_or_ips[7:])
         return path.read_text()
     else:
-        resp = requests.get(url_or_path, timeout=20)
+        resp = requests.get(url_or_ips, timeout=20)
         resp.raise_for_status()
         return resp.text
 
@@ -114,6 +120,20 @@ def fetch_ipv6_blacklist(url: str) -> Set[str]:
 
     return cidrs
 
+def collapse_cidrs(cidrs: Set[str], ip_version: int = 4) -> Set[str]:
+    """去重并合并连续/包含关系的 CIDR"""
+    network_objs = []
+    for c in cidrs:
+        try:
+            if ip_version == 4:
+                network_objs.append(ipaddress.IPv4Network(c, strict=False))
+            else:
+                network_objs.append(ipaddress.IPv6Network(c, strict=False))
+        except ValueError:
+            continue
+    collapsed = ipaddress.collapse_addresses(network_objs)
+    return {str(net) for net in collapsed}
+
 
 def main() -> None:
     cidrs_v4 = set()
@@ -143,19 +163,21 @@ def main() -> None:
             print(f"failed → {e}")
 
     # IPv4 排序和格式统一
-    cidrs_v4_sorted = sorted(cidrs_v4)
-
+    # cidrs_v4_sorted = sorted(cidrs_v4)
+    cidrs_v4_collapsed = sorted(collapse_cidrs(cidrs_v4, ip_version=4))
     # IPv6 排序
-    cidrs_v6_sorted = sorted(cidrs_v6)
-
+    # cidrs_v6_sorted = sorted(cidrs_v6)
+    cidrs_v6_collapsed = sorted(collapse_cidrs(cidrs_v6, ip_version=6))
     # 输出文件
-    (OUT_DIR / "blacklist_cidr_v4.txt").write_text("\n".join(cidrs_v4_sorted), encoding="utf-8")
-    (OUT_DIR / "blacklist_cidr_v6.txt").write_text("\n".join(cidrs_v6_sorted), encoding="utf-8")
-
+    # (OUT_DIR / "blacklist_cidr_v4.txt").write_text("\n".join(cidrs_v4_sorted), encoding="utf-8")
+    (OUT_DIR / "blacklist_cidr_v4.txt").write_text("\n".join(cidrs_v4_collapsed), encoding="utf-8")
+    # (OUT_DIR / "blacklist_cidr_v6.txt").write_text("\n".join(cidrs_v6_sorted), encoding="utf-8")
+    (OUT_DIR / "blacklist_cidr_v6.txt").write_text("\n".join(cidrs_v6_collapsed), encoding="utf-8")
+   
     print(textwrap.dedent(f"""
         ✅ 黑名单提取完成！
-        - IPv4 CIDR 段数量 : {len(cidrs_v4_sorted):>6}
-        - IPv6 CIDR 段数量 : {len(cidrs_v6_sorted):>6}
+        - IPv4 CIDR 段数量 : {len(cidrs_v4_collapsed):>6}
+        - IPv6 CIDR 段数量 : {len(cidrs_v6_collapsed):>6}
         - 输出目录          : {OUT_DIR}
         - 输出文件：
             - blacklist_cidr_v4.txt
