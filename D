@@ -8,3 +8,4 @@ https://v2ray.banyunxiaoxi.ml/
 
 https://raw.fastgit.org/freefq/free/master/v2
 https://check.banyunxiaoxi.icu/sub/sub-base64.txt
+https://mxlsub.qzz.io/free
