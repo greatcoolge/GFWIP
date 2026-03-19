@@ -16,7 +16,7 @@ LISTS_V4 = {
     "firehol_level1": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset",
     "spamhaus_drop": "https://www.spamhaus.org/drop/drop.txt",
     "abuse_palevo": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/refs/heads/master/iblocklist_abuse_palevo.netset",
-    "dshield": "https://feeds.dshield.org/block.txt",
+    # "dshield": "https://feeds.dshield.org/block.txt",
     "feodo": "https://feodotracker.abuse.ch/downloads/ipblocklist_recommended.txt",
     # "sslbl": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/sslbl.netset",
     # "Blocklist.de": "https://lists.blocklist.de/lists/strongips.txt",
