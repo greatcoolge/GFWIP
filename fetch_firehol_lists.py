@@ -20,7 +20,7 @@ LISTS_V4 = {
     "feodo": "https://feodotracker.abuse.ch/downloads/ipblocklist_recommended.txt",
     # "sslbl": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/sslbl.netset",
     # "Blocklist.de": "https://lists.blocklist.de/lists/strongips.txt",
-    "zeus_badips": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/refs/heads/master/iblocklist_abuse_zeus.netset",
+    # "zeus_badips": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/refs/heads/master/iblocklist_abuse_zeus.netset",
     "bogons": "http://www.cidr-report.org/bogons/freespace-prefix.txt",
 }
 
