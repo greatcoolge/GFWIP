@@ -21,7 +21,7 @@ LISTS_V4 = {
     # "sslbl": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/sslbl.netset",
     # "Blocklist.de": "https://lists.blocklist.de/lists/strongips.txt",
     # "zeus_badips": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/refs/heads/master/iblocklist_abuse_zeus.netset",
-    "bogons": "http://www.cidr-report.org/bogons/freespace-prefix.txt",
+    # "bogons": "http://www.cidr-report.org/bogons/freespace-prefix.txt",
 }
 
 # ▶ 推荐使用的 IPv6 黑名单（Spamhaus DROP IPv6）
