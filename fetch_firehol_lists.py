@@ -13,7 +13,7 @@ OUT_DIR = pathlib.Path(__file__).resolve().parent / "fetch_firehol_lists"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 # ▶ 推荐使用的 IPv4 黑名单列表（FireHOL + abuse.ch）
 LISTS_V4 = {
-    "firehol_level1": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset",
+    # "firehol_level1": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset",
     "spamhaus_drop": "https://www.spamhaus.org/drop/drop.txt",
     "abuse_palevo": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/refs/heads/master/iblocklist_abuse_palevo.netset",
     # "dshield": "https://feeds.dshield.org/block.txt",
